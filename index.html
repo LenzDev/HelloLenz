@@ -6,17 +6,30 @@
     <title>Hacker Typing Effect</title>
     <style>
         body {
-            background-color: black;
+            background: url('https://wallpaperaccess.com/full/3038257.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: #00ff00;
             font-family: "Courier New", monospace;
             font-size: 20px;
             padding: 20px;
+        }
+        .overlay {
+            background: rgba(0, 0, 0, 0.7); /* Efek gelap agar teks tetap terbaca */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
         .terminal {
             white-space: pre-line;
             overflow: hidden;
             border-left: 3px solid #00ff00;
             padding-left: 10px;
+            background: rgba(0, 0, 0, 0.6); /* Latar belakang transparan */
+            display: inline-block;
+            padding: 10px;
         }
         .cursor {
             display: inline-block;
@@ -32,10 +45,12 @@
 </head>
 <body>
 
+<div class="overlay"></div>
+
 <div class="terminal" id="text"></div><span class="cursor"></span>
 
 <script>
-    const text = "Hallo, My Name LenZ, I Am A Human Being Who Is Curious About The Cyber World";
+    const text = "Hallo, My Name LenZ, I Am A Human Being Who Is Curious About The Cyber World, Thanks Love U All";
     let i = 0;
 
     function typeWriter() {
