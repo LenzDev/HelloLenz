@@ -41,6 +41,23 @@
         @keyframes blink {
             50% { opacity: 0; }
         }
+        .credits {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+        }
+        .quote {
+            position: fixed;
+            bottom: 50px;
+            left: 10px;
+            font-size: 16px;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            max-width: 90%;
+        }
     </style>
 </head>
 <body>
@@ -49,8 +66,13 @@
 
 <div class="terminal" id="text"></div><span class="cursor"></span>
 
+<div class="quote" id="quote"></div>
+
+<div class="credits">By: LenzDev</div>
+
 <script>
-    const text = "Hallo, My Name LenZ, I Am A Human Being Who Is Curious About The Cyber World, Thanks Love U All";
+    const text = "Hallo, My Name LenZ, I Am A Human Being Who Is Curious About The Cyber World";
+    const quote = "“Wahai hamba-hamba-Ku yang melampaui batas terhadap diri mereka sendiri! Janganlah kamu berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni dosa-dosa semuanya. Sesungguhnya Dialah Yang Maha Pengampun lagi Maha Penyayang.” (QS. Az-Zumar: 53)";
     let i = 0;
 
     function typeWriter() {
@@ -58,6 +80,8 @@
             document.getElementById("text").innerHTML += text.charAt(i);
             i++;
             setTimeout(typeWriter, Math.random() * (200 - 50) + 50); // Kecepatan acak antara 50-200ms
+        } else {
+            setTimeout(() => document.getElementById("quote").innerText = quote, 1000); // Tampilkan quote setelah teks selesai
         }
     }
 
