@@ -22,6 +22,13 @@
             height: 100%;
             z-index: -1;
         }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Menjadikan teks dan quotes sejajar */
+            max-width: 80%;
+            margin: 50px auto;
+        }
         .terminal {
             white-space: pre-line;
             overflow: hidden;
@@ -50,13 +57,15 @@
             font-family: "Courier New", monospace;
         }
         .quote {
-            position: fixed;
-            bottom: 50px;
-            left: 10px;
-            font-size: 16px;
+            margin-top: 20px; /* Jarak dari teks utama */
+            font-size: 18px;
             color: #00ff00;
             font-family: "Courier New", monospace;
-            max-width: 90%;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-left: 3px solid #00ff00;
+            display: none; /* Sembunyikan sampai teks utama selesai */
+            max-width: 100%;
         }
     </style>
 </head>
@@ -64,11 +73,12 @@
 
 <div class="overlay"></div>
 
-<div class="terminal" id="text"></div><span class="cursor"></span>
+<div class="container">
+    <div class="terminal" id="text"></div><span class="cursor"></span>
+    <div class="quote" id="quote"></div>
+</div>
 
-<div class="quote" id="quote"></div>
-
-<div class="credits">By: LenzDev</div>
+<div class="credits">By: LenzDevs</div>
 
 <script>
     const text = "Hallo, My Name LenZ, I Am A Human Being Who Is Curious About The Cyber World";
@@ -81,7 +91,11 @@
             i++;
             setTimeout(typeWriter, Math.random() * (200 - 50) + 50); // Kecepatan acak antara 50-200ms
         } else {
-            setTimeout(() => document.getElementById("quote").innerText = quote, 1000); // Tampilkan quote setelah teks selesai
+            setTimeout(() => {
+                const quoteElement = document.getElementById("quote");
+                quoteElement.innerText = quote;
+                quoteElement.style.display = "block"; // Tampilkan quote di bawah teks
+            }, 1000);
         }
     }
 
