@@ -3,40 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Typing Effect with Islamic Quote</title>
+    <title>Cyber Typing Effect</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
         body {
-            background: url('https://wallpaperaccess.com/full/3038257.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #00ff00; /* Warna teks utama tetap hijau */
-            font-family: "Courier New", monospace;
-            font-size: 20px;
-            padding: 20px;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            color: #00ff00;
+            background: black;
         }
-        .overlay {
-            background: rgba(0, 0, 0, 0.7); /* Efek gelap agar teks tetap terbaca */
-            position: fixed;
-            top: 0;
-            left: 0;
+
+        /* Background effect */
+        .stars {
+            position: absolute;
             width: 100%;
             height: 100%;
+            background: black;
+            overflow: hidden;
             z-index: -1;
         }
+
+        .stars span {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            animation: animateStars linear infinite;
+        }
+
+        @keyframes animateStars {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* Main container */
         .container {
             position: absolute;
-            top: 20px;
-            left: 50px; /* Posisi teks utama di kiri atas */
+            top: 20%;
+            left: 10%;
             max-width: 80%;
         }
+
+        /* Typing effect */
         .terminal {
             white-space: pre-line;
             overflow: hidden;
+            padding: 15px;
             border-left: 3px solid #00ff00;
-            padding-left: 10px;
-            background: rgba(0, 0, 0, 0.6); /* Latar belakang transparan */
+            background: rgba(0, 0, 0, 0.8);
             display: inline-block;
-            padding: 10px;
+            font-size: 20px;
+            box-shadow: 0 0 10px #00ff00;
         }
+
+        /* Cursor effect */
         .cursor {
             display: inline-block;
             width: 10px;
@@ -44,9 +66,37 @@
             background-color: #00ff00;
             animation: blink 0.8s infinite;
         }
+
         @keyframes blink {
             50% { opacity: 0; }
         }
+
+        /* Quote effect */
+        .quote {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ffffff;
+            font-family: "Arial", sans-serif;
+            background: rgba(0, 255, 0, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        /* Glitch effect */
+        .glitch {
+            position: relative;
+            display: inline-block;
+            animation: glitch 1s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px 5px #ff0000, -2px -2px 5px #0000ff; }
+            100% { text-shadow: -2px -2px 5px #ff0000, 2px 2px 5px #0000ff; }
+        }
+
+        /* Credits */
         .credits {
             position: fixed;
             bottom: 10px;
@@ -55,24 +105,13 @@
             color: #00ff00;
             font-family: "Courier New", monospace;
         }
-        .quote {
-            margin-top: 20px; /* Jarak dari teks utama */
-            font-size: 18px;
-            color: #ffffff; /* Warna kutipan menjadi putih */
-            font-family: "Arial", sans-serif; /* Menggunakan font yang lebih bersih */
-            background: rgba(255, 255, 255, 0.2); /* Latar belakang putih transparan */
-            padding: 15px;
-            border-radius: 5px; /* Memberikan sudut yang lebih halus */
-            display: none; /* Sembunyikan sampai teks utama selesai */
-            max-width: 100%;
-            position: relative;
-            left: -20px; /* Geser kutipan lebih ke kiri */
-        }
+
     </style>
 </head>
 <body>
 
-<div class="overlay"></div>
+<!-- Animated Background -->
+<div class="stars" id="stars"></div>
 
 <div class="container">
     <div class="terminal" id="text"></div><span class="cursor"></span>
@@ -88,19 +127,36 @@
 
     function typeWriter() {
         if (i < text.length) {
-            document.getElementById("text").innerHTML += text.charAt(i);
+            let charSpan = document.createElement("span");
+            charSpan.classList.add("glitch");
+            charSpan.textContent = text.charAt(i);
+            document.getElementById("text").appendChild(charSpan);
             i++;
-            setTimeout(typeWriter, Math.random() * (200 - 50) + 50); // Kecepatan acak antara 50-200ms
+            setTimeout(typeWriter, Math.random() * (150 - 50) + 50);
         } else {
             setTimeout(() => {
                 const quoteElement = document.getElementById("quote");
                 quoteElement.innerText = quote;
-                quoteElement.style.display = "block"; // Tampilkan quote di bawah teks
+                quoteElement.style.display = "block";
             }, 1000);
         }
     }
 
     typeWriter();
+
+    // Generate stars background animation
+    function createStars() {
+        const starsContainer = document.getElementById("stars");
+        for (let i = 0; i < 100; i++) {
+            let star = document.createElement("span");
+            star.style.left = Math.random() * 100 + "vw";
+            star.style.top = Math.random() * -100 + "vh";
+            star.style.animationDuration = Math.random() * 3 + 2 + "s";
+            starsContainer.appendChild(star);
+        }
+    }
+
+    createStars();
 </script>
 
 </body>
