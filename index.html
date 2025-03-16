@@ -82,6 +82,25 @@
             border-radius: 5px;
             display: none;
             box-shadow: 0 0 10px #00ff00;
+            opacity: 0;
+        }
+
+        /* Fade-in animation for quote */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glowing effect */
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00; }
+            50% { text-shadow: 0 0 15px #00ff00, 0 0 25px #00ff00; }
+            100% { text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00; }
+        }
+
+        .quote.fade-in {
+            animation: fadeIn 2s ease-in-out forwards, glow 3s infinite alternate;
+            display: block;
         }
 
         /* Glitch effect */
@@ -137,7 +156,7 @@
             setTimeout(() => {
                 const quoteElement = document.getElementById("quote");
                 quoteElement.innerText = quote;
-                quoteElement.style.display = "block";
+                quoteElement.classList.add("fade-in");
             }, 1000);
         }
     }
